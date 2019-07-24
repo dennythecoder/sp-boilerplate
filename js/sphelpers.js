@@ -21,14 +21,14 @@ function updateItem(listName, id, dataPairs, callback){
 	});
 }
 
-function getListItems(listName, callback, fields){	
+function getListItems(listName, fields, callback){	
 	$().SPServices({
 		operation: "GetListItems",
 		async: false,
 		listName: "Todo",
 		completefunc: function(data, status){
 			var arr = [];
-			$(data).responseXML.SPFilterNode("z:row").each(function(){
+			$(data.responseXML).SPFilterNode("z:row").each(function(){
 				var item = {};
 				for(var key in fields){
 				    var attr = fields[key];
@@ -36,7 +36,7 @@ function getListItems(listName, callback, fields){
 				}
 				arr.push(item);
    			});
-   			 cb(arr);
+   			 callback(arr);
 		}});
 }
 
