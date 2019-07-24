@@ -21,6 +21,37 @@ function updateItem(listName, id, dataPairs, callback){
 	});
 }
 
+/*
+
+	listName: String of list name
+	fields:  Object with destination field names as keys and received attribute names as values
+		example:  var fields = {
+					title: 'ows_Title',
+					id:    'ows_ID'
+					};
+	callback: Function that accepts array parameter
+		example: function(arr){
+                           for(var i = 0;  i < arr.length; i++){
+			   	console.log(arr[i].title);
+			   }
+			 }
+
+	altogether:
+	
+		getListItems( 'Todo',
+			      {
+			      	title:'ows_Title',
+				id:   'ows_ID'
+			      },
+			      function(arr){
+			      	for(var i = 0;  i < arr.length; i++){
+			   	   console.log(arr[i].title);
+			   	}
+			      }
+			     );
+
+*/
+
 function getListItems(listName, fields, callback){	
 	$().SPServices({
 		operation: "GetListItems",
