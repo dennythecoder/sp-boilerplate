@@ -21,17 +21,23 @@ function updateItem(listName, id, dataPairs, callback){
 	});
 }
 
-function getListItems(listName, callback){	
-		$().SPServices({
+function getListItems(listName, callback, fields){	
+	$().SPServices({
 		operation: "GetListItems",
 		async: false,
 		listName: "Todo",
-		completefunc: function(xData, Status){
-			
-		  var data = $(xData.responseXML).SPFilterNode("z:row")
-		  callback(data, Status);
-		} 
-	});
+		completefunc: function(data, status){
+			var arr = [];
+			$(data).responseXML.SPFilterNode("z:row").each(function(){
+				var item = {};
+				for(var key in fields){
+				    var attr = fields[key];
+					item[key] = $(this).attr(attr);
+				}
+				arr.push(item);
+   			});
+   			 cb(arr);
+		}});
 }
 
 
